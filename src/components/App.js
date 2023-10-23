@@ -14,7 +14,16 @@ class App extends Component {
     };
 
     buttonClickHandler() {
-   
+      this.setState({
+            renderBall: true,
+        });
+        this.interval = setInterval(() => {
+            const newPos = this.state.posi + 5;
+            this.setState({
+                posi: newPos,
+                ballPosition: { left: `${newPos}px` }
+            });
+        }, 16);
    }
     renderBallOrButton() {
 		if (this.state.renderBall) {
@@ -26,7 +35,15 @@ class App extends Component {
 
     // bind ArrowRight keydown event
     componentDidMount() {
-      
+       document.addEventListener("keydown", (event) => {
+            if (event.key === "ArrowRight" && this.state.renderBall) {
+                const newPos = this.state.posi + 5;
+                this.setState({
+                    posi: newPos,
+                    ballPosition: { left: `${newPos}px` }
+                });
+            }
+        });
     }
 
     render() {
